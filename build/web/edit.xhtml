@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./newTemplate.xhtml">
+
+            <ui:define name="left">
+                left
+            </ui:define>
+
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="ID"/>
+                        <h:outputText value="#{productBean.product.PID}" id="txtID"/>
+                        <h:message for="txtID"/>
+                        
+                        <h:outputLabel value="name"/>
+                        <h:inputText value="#{productBean.product.PName}" id="txtName" required="true" requiredMessage="*"/>
+                        <h:message for="txtName"/>
+                        
+                        <h:outputLabel value="Created Date"/>
+                        <h:inputText value="#{productBean.product.createdDate}" id="txtDate" required="true" requiredMessage="*">
+                            <f:convertDateTime pattern="dd-MM-yyyy"/>
+                        </h:inputText>
+                        <h:message for="txtDate"/>
+                        
+                        <h:selectOneMenu value="#{productBean.product.manu.manuID}">
+                            <f:selectItems value="#{productBean.listManu}" var="it" itemLabel="#{it.manuName}" itemValue="#{it.manuID}"/>
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <h:commandButton value="Update" action="#{productBean.update()}"/>
+                    <h:commandButton value="Add new" action="#{productBean.prepareAddNew()}" style="margin-left: 10px"/>
+                </h:form>
+                <h:form>
+                    <h:commandLink value="Go back" action="#{productBean.goBack()}"/>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
